@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: fast_api
+    command: python api/app/main.py
+    ports:
+      - "8000:80"
+
+  bot:
+    build:
+      context: .
+      dockerfile: bot/Dockerfile
+    command: python bot/app/main.py
+    environment:
+      - TELEGRAM_TOKEN=<TELEGRAM_TOKEN>
