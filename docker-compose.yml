@@ -17,3 +17,18 @@ services:
     command: python bot/app/main.py
     environment:
       - TELEGRAM_TOKEN=<TELEGRAM_TOKEN>
+
+  postgres:
+    image: postgres:17
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: career_assistant
+    ports:
+      - "5440:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
