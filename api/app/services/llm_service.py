@@ -8,7 +8,7 @@ load_dotenv()
 
 class LLMService:
     def __init__(self):
-        # self.repo = QuestionRepository()
+        self.repo = QuestionRepository()
         self.llm = ChatOpenAI(
             model_name="deepseek-chat",
             base_url='https://api.proxyapi.ru/deepseek',
