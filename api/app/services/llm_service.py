@@ -1,4 +1,4 @@
-from app.data.repositories.question_repository import QuestionRepository
+from data.repositories.question_repository import QuestionRepository
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
@@ -15,10 +15,6 @@ class LLMService:
             api_key=os.getenv("PROXYAPI_KEY"),
             temperature=0.7
         )
-
-    def process_dataset(self):
-        questions = self.repo.get_questions_by_topics([1, 4, 6])
-        return questions
     
     def llm_process(self, question, user_message, answer):
         prompt_template = PromptTemplate(

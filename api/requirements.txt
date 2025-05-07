@@ -6,5 +6,4 @@ psycopg2
 pydantic
 langchain
 langchain-openai
-python-dotenv
-
+redis
