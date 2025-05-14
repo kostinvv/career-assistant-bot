@@ -44,3 +44,21 @@ class LLMService:
         response = self.llm.invoke(prompt)
         
         return response
+    
+    def analyze_logs(self, logs):
+        prompt_template = PromptTemplate(
+            input_variables=['logs'],
+            template='''Ты эксперт в области backend разработки. Твоя задача - анализировать логи приложений и выявлять возможные ошибки или проблемы. 
+            Вот логи, которые нужно проанализировать:
+            {logs}
+            Ты должен ответить в следующем формате:
+            1. Описание проблемы (если есть).
+            2. Возможная причина проблемы.
+            3. Рекомендации по исправлению.'''
+        )
+
+        prompt = prompt_template.format(logs=logs)
+        
+        response = self.llm.invoke(prompt)
+        
+        return response

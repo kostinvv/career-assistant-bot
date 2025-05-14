@@ -56,3 +56,6 @@ class InteractionOut(BaseModel):
     answer: str
     ai_response: str
     next_question: QuestionOut | None
+
+class AnalyzeLogsRequest(BaseModel):
+    log_message: str
