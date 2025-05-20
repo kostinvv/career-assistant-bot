@@ -2,8 +2,7 @@ fastapi[standard]
 uvicorn
 sqlalchemy
 python-dotenv
-psycopg2
 pydantic
+psycopg2-binary
 langchain
 langchain-openai
-redis

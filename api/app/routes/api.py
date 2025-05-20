@@ -1,6 +1,5 @@
 import logging
 import traceback
-import utils.log_parser as log_parser
 
 from logging.config import dictConfig
 
@@ -210,3 +209,7 @@ def analyze_logs_text(log_message: str = Form(...)):
     except Exception:
         logger.error(f"Ошибка при анализе логов:\n" + traceback.format_exc())
         raise HTTPException(status_code=500, detail="Internal server error")
+
+@router.get("/health", status_code=status.HTTP_200_OK) 
+def health():
+    return {"status": "ok"}
