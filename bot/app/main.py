@@ -63,7 +63,7 @@ async def handle_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = resp.json()
 
     # Отправляем ответ от AI.
-    await update.message.reply_text(f"AI: {data['ai_response']}")
+    await update.message.reply_text(f"AI: {data['ai_response']}", parse_mode='Markdown')
 
     # Если есть следующий вопрос.
     next_q = data.get("next_question")
