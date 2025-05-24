@@ -1,22 +1,19 @@
 import logging
 import requests
-import os
-from dotenv import load_dotenv
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, ConversationHandler, filters
 
+# Включаем логирование
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Константы состояний.
+# Константы состояний
 CHOOSING_TOPIC, ASKING_QUESTION = range(2)
 
-# Храним состояние по chat_id.
+# Храним состояние по chat_id
 user_sessions = {}
 
-load_dotenv()
-BOT_API_KEY = os.getenv("BOT_API_KEY")
-API_URL = "http://fast_api/api"
+API_URL = "http://localhost:80/api"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = requests.get(f"{API_URL}/topics")
@@ -41,14 +38,14 @@ async def choose_topic(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Топик не найден. Попробуй снова.")
         return CHOOSING_TOPIC
 
-    # Создаём сессию.
+    # Создаём сессию
     resp = requests.post(f"{API_URL}/sessions", json={"topic_id": topic_id})
     session = resp.json()
 
     context.user_data["session_id"] = session["session_id"]
     context.user_data["question_id"] = session["question_id"]
 
-    # Получаем текст вопроса.
+    # Получаем текст вопроса
     first_question = session["text"]
     await update.message.reply_text(f"Вопрос: {first_question}")
     return ASKING_QUESTION
@@ -72,14 +69,13 @@ async def handle_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"Следующий вопрос: {next_q['text']}")
         return ASKING_QUESTION
 
-# Команда /cancel.
+# Команда /cancel
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Сессия завершена.")
     return ConversationHandler.END
 
-# Запуск приложения.
 def main():
-    app = ApplicationBuilder().token(BOT_API_KEY).build()
+    app = ApplicationBuilder().token("7513748711:AAEgVYfopKJaRn02O5Nex24NA-AQj0Vrwv0").build()
 
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],

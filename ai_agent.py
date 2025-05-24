@@ -111,7 +111,7 @@ def execute_plan(plan: list) -> None:
             print(f"Unknown action: {action}")         
 
 def main():
-    # Чтение задач из README.md
+    # Чтение задач из README.mdды
     with open("README.md", "r", encoding="utf-8") as f:
         readme_content = f.read()
 

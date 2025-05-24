@@ -1,5 +1,6 @@
 version: '3.8'
 
+
 services:
   api:
     build:
@@ -15,6 +16,10 @@ services:
     command: python api/app/main.py
     ports:
       - "8000:80"
+    networks:
+      - backend
+
+
 
   bot:
     build:
@@ -23,6 +28,8 @@ services:
     command: python bot/app/main.py
     environment:
       - TELEGRAM_TOKEN=<TELEGRAM_TOKEN>
+    networks:
+      - backend
 
   postgres:
     image: postgres:17
@@ -35,8 +42,11 @@ services:
       - "5440:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
 
-  
+networks:
+  backend:
 
 volumes:
   postgres_data:
